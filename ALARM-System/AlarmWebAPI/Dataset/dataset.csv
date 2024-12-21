@@ -1,0 +1,6 @@
+﻿namespace AlarmWebAPI.Dataset
+{
+    public class dataset
+    {
+    }
+}
