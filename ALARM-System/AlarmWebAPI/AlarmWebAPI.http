@@ -1,6 +1,0 @@
-@AlarmWebAPI_HostAddress = http://localhost:5158
-
-GET {{AlarmWebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
