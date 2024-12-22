@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ML.Data;
 using Microsoft.ML;
+using Microsoft.VisualBasic;
 
 namespace AlarmWebAPI.Controllers.ML
 {
@@ -21,22 +22,22 @@ namespace AlarmWebAPI.Controllers.ML
         {
             string dataPath = "Dataset/ds_final.csv";
 
-            // Load data
+            // Загрузка данных
             IDataView data = _mlContext.Data.LoadFromTextFile<ModelInput>(
                 dataPath,
                 hasHeader: true,
                 separatorChar: ',');
 
-            // Split data
+            // Разделение данных
             var trainTestData = _mlContext.Data.TrainTestSplit(data, testFraction: 0.2);
 
-            // Указать "is_fraud" как Label
-            var pipeline = _mlContext.Transforms.CopyColumns("Label", "is_fraud")
+            // Создание конвейера
+            var pipeline = _mlContext.Transforms.Conversion.MapValueToKey("Label", "is_fraud")
                 .Append(_mlContext.Transforms.Categorical.OneHotEncoding("inn_type"))
                 .Append(_mlContext.Transforms.Categorical.OneHotEncoding("prim_okved"))
                 .Append(_mlContext.Transforms.Categorical.OneHotEncoding("company_age"))
                 .Append(_mlContext.Transforms.NormalizeMinMax("zsk"))
-                 .Append(_mlContext.Transforms.NormalizeMinMax("phone_mask"))
+                .Append(_mlContext.Transforms.NormalizeMinMax("phone_mask"))
                 .Append(_mlContext.Transforms.Concatenate(
                     "Features",
                     "prim_okved",
@@ -46,14 +47,14 @@ namespace AlarmWebAPI.Controllers.ML
                     "phone_mask"))
                 .Append(_mlContext.BinaryClassification.Trainers.SdcaLogisticRegression());
 
-            // Model train
+            // Обучение модели
             var model = pipeline.Fit(trainTestData.TrainSet);
 
-            // Model test
+            // Тестирование модели
             var predictions = model.Transform(trainTestData.TestSet);
             var metrics = _mlContext.BinaryClassification.Evaluate(predictions, "Label");
-            
-            // Save model
+
+            // Сохранение модели
             _mlContext.Model.Save(model, data.Schema, "Models/fraudDetectionModel.zip");
 
             return Ok(new

@@ -14,6 +14,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient("PredictionAPI", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7083/api/");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

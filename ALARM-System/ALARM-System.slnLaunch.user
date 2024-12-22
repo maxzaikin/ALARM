@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Alarm\\Alarm.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "AlarmWebAPI\\AlarmWebAPI.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

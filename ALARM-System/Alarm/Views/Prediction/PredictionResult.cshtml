@@ -1,0 +1,5 @@
+﻿@model PredictionResponse
+
+<h2>Результат прогноза</h2>
+<p>Вероятность мошенничества: @Model.Probability</p>
+<p>Мошенничество: @(Model.IsFraud ? "Да" : "Нет")</p>

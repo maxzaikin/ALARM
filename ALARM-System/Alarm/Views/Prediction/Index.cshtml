@@ -1,0 +1,27 @@
+﻿@model PredictionRequest
+
+<h2>Введите данные для Анализа благонадежности</h2>
+<form asp-action="Predict" method="post">
+    <div>
+        <label>ОКВЭД</label>
+        <input asp-for="PrimOkved" />
+    </div>
+    <div>
+        <label>ЗСК</label>
+        <input asp-for="Zsk" />
+    </div>
+    <div>
+        <label>Тип ИНН</label>
+        <input asp-for="InnType" />
+    </div>
+    <div>
+        <label>Возраст компании</label>
+        <input asp-for="CompanyAge" />
+    </div>
+    <div>
+        <label>Маска телефона(фед. номер без последних 4 цифр)</label>
+        <input asp-for="PhoneMask" />
+    </div>
+    <button type="submit">Сделать прогноз</button>
+</form>
+
