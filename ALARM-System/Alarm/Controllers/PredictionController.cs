@@ -1,6 +1,7 @@
 ﻿using Alarm.Models;
 using Microsoft.AspNetCore.Mvc;
 
+// Razor page
 namespace Alarm.Controllers
 {
     public class PredictionController : Controller
@@ -12,29 +13,29 @@ namespace Alarm.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        // Для отображения формы предсказания
+        // Display pred form
         public IActionResult Index()
         {
-            return View(); // Отображение начальной страницы с формой
+            return View(); 
         }
 
-        // Для обработки данных формы и вызова WebAPI
+        // display form fields and call WebAPI
         [HttpPost]
         public async Task<IActionResult> Predict(PredictionRequest request)
         {
             var client = _httpClientFactory.CreateClient("PredictionAPI");
 
-            // Отправка данных в WebAPI
+            // send data to WebAPI
             var response = await client.PostAsJsonAsync("FraudDetection/predict", request);
             if (response.IsSuccessStatusCode)
             {
                 var prediction = await response.Content.ReadFromJsonAsync<PredictionResponse>();
-                return View("PredictionResult", prediction); // Показ результата
+                return View("PredictionResult", prediction); 
             }
             else
             {
-                // Возврат на начальную страницу с ошибкой
-                ModelState.AddModelError("", "Ошибка при получении предсказания.");
+                // Error, send user back with error
+                ModelState.AddModelError("", "Error receive predicion data");
                 return View("Index");
             }
         }
