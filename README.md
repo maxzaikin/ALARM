@@ -1,23 +1,34 @@
 # ALARM: Applicant Loan Analyzer for Risk Management
 
+## **History**
+
+<img src="./images/xmass-hack-2024.png" width="300" />
+
+The creation of this project has been driven by th XMASS-Hack 2024 contest. Case#2: "Initial (Preventive) Compliance: Risk Prevention Using AI." sponsored by [Blanc Labs](https://blanclabs.com/who-we-are/) a full-service technology consulting firm.
+
+**The Task**
+Create a system that, based on the provided data about the bank's current clients, as well as additional information from open sources, social media, websites, and other company-related parameters, can predict the risk level of a new client.
+
 ## **Project Overview**
-The ALARM system (Applicant Loan Analyzer for Risk Management) is a web-based application designed to predict and assess the risk level of loan applicants. By leveraging advanced machine learning models, ALARM empowers financial institutions to make data-driven decisions, minimize risks, and optimize loan approval processes.
+I named my solution: **ALARM system** (Applicant Loan Analyzer for Risk Management). The ALARM is a web-based application designed to predict and assess the risk level of loan applicants with the minimum initial data provided, Idealy SSN/INN. 
+The ALARM system leveraging advanced machine learning models along with publicly avaliable data provided by certain public goverment services, and empowers financial institutions to make data-driven analytics in order to help minimize rirsk and make best decisions.
 
 ## **Objective**
 The primary goal of the ALARM project is to provide an efficient and scalable solution for evaluating loan applications by:
-- Analyzing applicant data.
-- Generating risk predictions based on pre-trained machine learning models.
+- Analyzing applicant's initial data.
+- Gather data from publicly available serives and make entry level check-up. How much real info has been provided, name, stock etc.
+- Generating risk predictions based on pre-trained ML model on the real dataset with fraud-people features.
 - Offering a user-friendly interface for inputting data and viewing predictions.
 - Supporting cross-platform deployment on various operating systems.
 
 ---
 
 ## **Key Features**
-- **Cross-Platform Support:** Powered by .NET 8.0 and Docker containers, the application runs seamlessly on Linux, Windows, and macOS.
-- **Frontend:** A responsive, interactive web interface built using React for a modern user experience.
-- **Backend:** An ASP.NET Core-based REST API for data processing and model inference.
+- **Cross-Platform Support:** Powered by .NET Core, the application runs seamlessly on Linux, Windows, and macOS.
+- **Frontend:** A responsive, interactive web interface built using React + Angular + Bootstrap for a modern user experience.
+- **Backend:** An ASP.NET Core WebAPI-based REST API for data processing and model inference.
 - **Machine Learning Integration:** Includes support for ML.NET or Python-based ML models wrapped as REST APIs.
-- **Secure Deployment:** HTTPS configuration, container support, and OpenAPI documentation for secure and standardized API usage.
+- **Secure Deployment:** HTTPS configuration, and OpenAPI documentation for secure and standardized API usage.
 - **Test-Driven Development:** Comprehensive backend and frontend test coverage using xUnit and Jest.
 
 ---
@@ -29,7 +40,7 @@ The primary goal of the ALARM project is to provide an efficient and scalable so
 - **Key Features:**
   - Interactive forms for applicant data entry.
   - Real-time API integration for risk prediction.
-  - Responsive design using Bootstrap.
+  - Responsive design using Angular and Bootstrap.
 
 ### **2. Backend**
 - **Technology:** ASP.NET Core 8.0
@@ -55,9 +66,9 @@ The primary goal of the ALARM project is to provide an efficient and scalable so
 ### **Technology Stack**
 - **Frontend:** React 18.x, Node.js 20.x
 - **Backend:** .NET 8.0
-- **Containerization:** Docker (Linux-based containers)
+- **Containerization:** *not yet included*
 - **API Documentation:** OpenAPI (Swagger)
-- **Database:** SQLite (for initial prototyping; can be replaced with PostgreSQL/MySQL for production)
+- **Database:** *not yet included*
 
 ### **Versioning**
 - **React:** 18.x
@@ -66,55 +77,14 @@ The primary goal of the ALARM project is to provide an efficient and scalable so
 - **ML.NET:** 2.x (if applicable)
 - **Node.js:** 20.x
 
-### **Deployment**
-- Dockerfile and `docker-compose.yml` are provided for easy containerized deployment.
-- Backend and Frontend services are designed to run independently for better scalability.
-
----
-
-## **Getting Started**
-### **1. Prerequisites**
-- Node.js 20.x
-- .NET 8.0 SDK
-- Docker Desktop 4.x
-
-### **2. Cloning the Repository**
-```bash
-git clone https://github.com/yourusername/ALARM-System.git
-cd ALARM-System
-```
-
-### **3. Running the Frontend**
-```bash
-cd Frontend
-npm install
-npm start
-```
-
-### **4. Running the Backend**
-```bash
-cd ALARM
-dotnet run
-```
-
-### **5. Running with Docker**
-```bash
-docker-compose up
-```
-
 ---
 
 ## **Contributing**
-We welcome contributions to improve the ALARM system. Please follow these steps:
+Contributions are welcome to improve the ALARM system. Please follow these steps:
 1. Fork the repository.
 2. Create a feature branch.
 3. Commit your changes.
 4. Submit a pull request.
-
----
-
-## **License**
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
