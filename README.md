@@ -2,7 +2,7 @@
 
 ## **History**
 
-<img src="./images/xmass-hack-2024.png" width="300" />
+<img src="./images/xmass-hack-2024.png" width="450" />
 
 The creation of this project has been driven by th XMASS-Hack 2024 contest. Case#2: "Initial (Preventive) Compliance: Risk Prevention Using AI." sponsored by [Blanc Labs](https://blanclabs.com/who-we-are/) a full-service technology consulting firm.
 
