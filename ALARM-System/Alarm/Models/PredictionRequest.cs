@@ -1,13 +1,17 @@
-﻿namespace Alarm.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Alarm.Models
 {
     public class PredictionRequest
     {
-        public float PrimOkved { get; set; }
-        public float Zsk { get; set; }
-        public float InnType { get; set; }
-        public string CompanyAge { get; set; }
-        public float PhoneMask { get; set; }
-       
+        public float prim_okved { get; set; }
+        public float zsk { get; set; }
+        public float inn_type { get; set; }
+        public string company_age { get; set; }
+        public float phone_mask { get; set; }
+        [Required]
+        [MinLength(10)]
+        public string inn { get; set; }
 
     }
 }

@@ -1,30 +1,56 @@
 ﻿@model PredictionRequest
-@{
-    ViewBag.Title = "ddd";
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 }
+<h2 class="text-center">Анализ благонадежности</h2>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-body bg-light">
+            <form asp-action="Predict" method="post">
+                <!-- INN Field -->
+                <div class="mb-3">
+                    <label asp-for="inn" class="form-label">ИНН</label>
+                    <input asp-for="inn" class="form-control" />
+                    <span asp-validation-for="inn" class="text-danger"></span>
+                </div>
 
-<h2>Введите данные для Анализа благонадежности</h2>
-<form asp-action="Predict" method="post">
-    <div>
-        <label>ОКВЭД</label>
-        <input asp-for="PrimOkved" />
+                <!-- PrimOkved Field -->
+                <div class="mb-3">
+                    <label asp-for="prim_okved" class="form-label">ОКВЭД</label>
+                    <input asp-for="prim_okved" class="form-control" />
+                </div>
+
+                <!-- Zsk Field -->
+                <div class="mb-3">
+                    <label asp-for="zsk" class="form-label">ЗСК</label>
+                    <input asp-for="zsk" class="form-control" />
+                </div>
+
+                <!-- InnType Field -->
+                <div class="mb-3">
+                    <label asp-for="inn_type" class="form-label">Тип ИНН</label>
+                    <input asp-for="inn_type" class="form-control" />
+                </div>
+
+                <!-- CompanyAge Field -->
+                <div class="mb-3">
+                    <label asp-for="company_age" class="form-label">Возраст компании</label>
+                    <input asp-for="company_age" class="form-control" />
+                </div>
+
+                <!-- PhoneMask Field -->
+                <div class="mb-3">
+                    <label asp-for="phone_mask" class="form-label">Маска телефона (фед. номер без последних 4 цифр)</label>
+                    <input asp-for="phone_mask" class="form-control" />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye me-2"></i>Сделать прогноз</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label>ЗСК</label>
-        <input asp-for="Zsk" />
-    </div>
-    <div>
-        <label>Тип ИНН</label>
-        <input asp-for="InnType" />
-    </div>
-    <div>
-        <label>Возраст компании</label>
-        <input asp-for="CompanyAge" />
-    </div>
-    <div>
-        <label>Маска телефона(фед. номер без последних 4 цифр)</label>
-        <input asp-for="PhoneMask" />
-    </div>
-    <button type="submit">Сделать прогноз</button>
-</form>
+</div>
 

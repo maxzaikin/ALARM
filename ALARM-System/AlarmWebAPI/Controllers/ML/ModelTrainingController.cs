@@ -32,8 +32,7 @@ namespace AlarmWebAPI.Controllers.ML
             var trainTestData = _mlContext.Data.TrainTestSplit(data, testFraction: 0.2);
 
             // Создание конвейера
-            var pipeline = _mlContext.Transforms.Conversion.MapValueToKey("Label", "is_fraud")
-                .Append(_mlContext.Transforms.Categorical.OneHotEncoding("inn_type"))
+            var pipeline = _mlContext.Transforms.Categorical.OneHotEncoding("inn_type")
                 .Append(_mlContext.Transforms.Categorical.OneHotEncoding("prim_okved"))
                 .Append(_mlContext.Transforms.Categorical.OneHotEncoding("company_age"))
                 .Append(_mlContext.Transforms.NormalizeMinMax("zsk"))
@@ -45,21 +44,23 @@ namespace AlarmWebAPI.Controllers.ML
                     "inn_type",
                     "company_age",
                     "phone_mask"))
-                .Append(_mlContext.BinaryClassification.Trainers.SdcaLogisticRegression());
+                // Преобразование is_fraud в Boolean для Label
+                .Append(_mlContext.Transforms.Conversion.ConvertType("Label", outputKind: DataKind.Boolean, inputColumnName: "is_fraud"))
+                .Append(_mlContext.BinaryClassification.Trainers.SdcaLogisticRegression(labelColumnName: "Label", featureColumnName: "Features"));
 
             // Обучение модели
             var model = pipeline.Fit(trainTestData.TrainSet);
 
             // Тестирование модели
             var predictions = model.Transform(trainTestData.TestSet);
-            var metrics = _mlContext.BinaryClassification.Evaluate(predictions, "Label");
+            var metrics = _mlContext.BinaryClassification.Evaluate(predictions, labelColumnName: "Label");
 
             // Сохранение модели
-            _mlContext.Model.Save(model, data.Schema, "Models/fraudDetectionModel.zip");
+            _mlContext.Model.Save(model, trainTestData.TrainSet.Schema, "Models/fraudDetectionModel.zip");
 
             return Ok(new
             {
-                metrics.Accuracy,
+                Accuracy = metrics.Accuracy,
                 AUC = metrics.AreaUnderRocCurve
             });
         }

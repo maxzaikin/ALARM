@@ -2,8 +2,9 @@
 {
     public class PredictionResponse
     {
-        public float Probability { get; set; }
-        public bool IsFraud { get; set; }
+        public bool PredictedLabel { get; set; } // Binary prediction
+        public float Probability { get; set; } // Confidence probability
+        public float Score { get; set; } // Raw score
 
     }
 }

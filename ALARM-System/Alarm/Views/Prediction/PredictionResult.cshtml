@@ -1,9 +1,36 @@
 ﻿@model PredictionResponse
-{
-    
-    ViewBag.Title="Prediction Page"
-}
 
-<h2>Результат прогноза</h2>
-<p>Вероятность мошенничества: @Model.Probability</p>
-<p>Мошенничество: @(Model.IsFraud ? "Да" : "Нет")</p>
+<h2 class="text-center mt-4">Результат прогноза</h2>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow-sm border-primary">
+            <div class="card-header bg-primary text-white text-center">
+                Результат анализа
+            </div>
+            <div class="card-body">
+                <p class="fw-bold">Вероятность мошенничества:</p>
+                <p class="display-6 text-primary">@Model.Probability</p>
+
+                <p class="fw-bold">Скоринг-оценка:</p>
+                <p class="fs-4">
+                    <span class="badge @(Model.Score >= 0.7 ? "bg-danger" : Model.Score >= 0.4 ? "bg-warning text-dark" : "bg-success")">
+                        @Model.Score.ToString("0.00")
+                    </span>
+                </p>
+
+                <p class="fw-bold">Мошенничество:</p>
+                <p class="text-danger fs-5">
+                    @Html.Raw(Model.PredictedLabel
+                             ? "<i class='fas fa-exclamation-circle'></i> Да"
+                             : "<i class='fas fa-check-circle text-success'></i> Нет")
+                </p>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Данные предоставлены системой ALARM
+            </div>
+        </div>
+    </div>
+</div>
+
+

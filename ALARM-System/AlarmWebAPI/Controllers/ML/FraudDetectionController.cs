@@ -7,10 +7,12 @@ namespace AlarmWebAPI.Controllers.ML
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class FraudDetectionController : ControllerBase
     {
         private readonly MLContext _mlContext;
         private readonly ITransformer _model;
+        
 
         public FraudDetectionController()
         {
@@ -20,22 +22,21 @@ namespace AlarmWebAPI.Controllers.ML
             _model = _mlContext.Model.Load("Models/fraudDetectionModel.zip", out var modelInputSchema);
         }
 
-        [HttpPost("predict")]
+        [HttpPost("predict")]       
         public IActionResult Predict([FromBody] ModelInput input)
         {
+            // Create prediction engine
             var predictionEngine = _mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(_model);
 
-            // Forecast
+            // Get prediction
             var prediction = predictionEngine.Predict(input);
-
-            // convert predlabel back to bool
-            var labelConversion = _mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel");
-
+                        
             // return
             return Ok(new
             {
-                FraudProbability = prediction.Probability,
-                IsFraud = prediction.Prediction
+                isFraud = prediction.PredictedLabel,
+                probability = prediction.Probability,
+                score= prediction.Score
             });
         }
 
@@ -52,9 +53,11 @@ namespace AlarmWebAPI.Controllers.ML
 
         public class ModelOutput
         {
-            public bool Prediction { get; set; }
-            public float Probability { get; set; }
-            public float Score { get; set; }
+            [ColumnName("PredictedLabel")]
+            public bool PredictedLabel { get; set; } // Binary prediction
+
+            public float Probability { get; set; } // Confidence probability
+            public float Score { get; set; } // Raw score
         }
     }
 }
