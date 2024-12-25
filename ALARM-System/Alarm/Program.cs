@@ -1,4 +1,6 @@
+using Alarm.Controllers;
 using Alarm.Data;
+using Alarm.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +24,8 @@ builder.Services.AddHttpClient("PredictionAPI", client =>
     client.BaseAddress = new Uri("https://localhost:7083/api/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
+
+builder.Services.AddHttpClient<DaDataService>();
 
 var app = builder.Build();
 

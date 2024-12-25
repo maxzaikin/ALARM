@@ -1,5 +1,8 @@
 ﻿using Alarm.Models;
+using Alarm.Controllers;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Alarm.Services;
 
 // Razor page
 namespace Alarm.Controllers
@@ -7,22 +10,30 @@ namespace Alarm.Controllers
     public class PredictionController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly DaDataService _daDataService;
 
-        public PredictionController(IHttpClientFactory httpClientFactory)
+        public PredictionController(IHttpClientFactory httpClientFactory, DaDataService daDataService)
         {
             _httpClientFactory = httpClientFactory;
+            _daDataService = daDataService;
         }
 
         // Display pred form
         public IActionResult Index()
         {
-            return View(); 
+            return View();
         }
 
         // display form fields and call WebAPI
         [HttpPost]
         public async Task<IActionResult> Predict(PredictionRequest request)
         {
+            var info = await _daDataService.GetCompanyInfo(request.inn);
+            if (info == null)
+            {
+                ModelState.AddModelError("", "Company not found");
+                return View("Index");
+            }
             if (ModelState.IsValid)
             {
                 var client = _httpClientFactory.CreateClient("PredictionAPI");
@@ -48,7 +59,8 @@ namespace Alarm.Controllers
                 ModelState.AddModelError("", "Input data is invalid");
                 return View("Index");
             }
-            
+
         }
+
     }
 }
