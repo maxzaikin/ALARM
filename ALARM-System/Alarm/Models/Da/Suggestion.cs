@@ -1,4 +1,6 @@
-﻿namespace Alarm.Models.Da
+﻿using Newtonsoft.Json;
+
+namespace Alarm.Models.Da
 {
     public class AddressData
     {
@@ -92,10 +94,73 @@
         public string Okfs { get; set; }
         public string Okved { get; set; }
         public State State { get; set; }
-        public Opf Opf { get; set; }
         public Name Name { get; set; }
         public Address Address { get; set; }
         public Management Management { get; set; }
+
+        private long _originDateUnix;
+        [JsonProperty("ogrn_date")]
+        public long OriginDateUnix
+        {
+            get => _originDateUnix;
+            set
+            {
+                _originDateUnix = value;
+                OriginDate = DateTimeOffset.FromUnixTimeMilliseconds(value).DateTime;
+                SetDateCategory();
+            }
+        }
+
+        [JsonIgnore]
+        public DateTime OriginDate { get; private set; }
+
+        [JsonIgnore]
+        public string? CompanyAge { get; private set; }
+
+        private void SetDateCategory()
+        {
+            var age = DateTime.UtcNow - OriginDate;
+
+            if (age.TotalDays < 365)
+            {
+                CompanyAge = "new";
+            }
+            else if (age.TotalDays < 365 * 3)
+            {
+                CompanyAge = "mid";
+            }
+            else
+            {
+                CompanyAge = "old";
+            }
+        }
+        private Opf _opf;
+
+        [JsonProperty("opf")]
+        public Opf Opf
+        {
+            get => _opf;
+            set
+            {
+                _opf = value;
+                SetInnType(); // Вызываем метод после установки значения Opf
+            }
+        }
+
+        [JsonIgnore]
+        public int InnType { get; private set; }
+
+        private void SetInnType()
+        {
+            if (Opf != null && Opf.Code == "50102")
+            {
+                InnType = 1;
+            }
+            else
+            {
+                InnType = 2;
+            }
+        }
     }
 
     public class Suggestion
@@ -109,5 +174,4 @@
     {
         public List<Suggestion> Suggestions { get; set; }
     }
-
 }

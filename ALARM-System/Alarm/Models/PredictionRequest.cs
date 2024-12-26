@@ -1,14 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Alarm.Models.Da;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Alarm.Models
 {
     public class PredictionRequest
-    {
-        public float prim_okved { get; set; }
-        public float zsk { get; set; }
-        public float inn_type { get; set; }
-        public string company_age { get; set; }
-        public float phone_mask { get; set; }
+    {     
+         public string prim_okved { get; set; }
+         public int zsk { get; set; }
+         public int inn_type { get; set; }
+         public string company_age { get; set; }
+
+        [Required]
+        public string phone_mask { get; set; }
+      
+
         [Required]
         [MinLength(10)]
         public string inn { get; set; }
