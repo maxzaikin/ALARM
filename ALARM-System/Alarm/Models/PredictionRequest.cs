@@ -13,8 +13,7 @@ namespace Alarm.Models
          public string company_age { get; set; }
 
         [Required]
-        public string phone_mask { get; set; }
-      
+        public string phone_mask { get; set; }      
 
         [Required]
         [MinLength(10)]
