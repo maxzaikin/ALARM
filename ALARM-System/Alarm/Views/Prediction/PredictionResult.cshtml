@@ -1,5 +1,37 @@
 ﻿@model PredictionResponse
 
-<h2>Результат прогноза</h2>
-<p>Вероятность мошенничества: @Model.Probability</p>
-<p>Мошенничество: @(Model.IsFraud ? "Да" : "Нет")</p>
+<h2 class="text-center mt-4">Результат прогноза</h2>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow-sm border-primary">
+            <div class="card-header bg-primary text-white text-center">
+                RESULTS
+            </div>
+            <div class="card-body">
+                <p class="fw-bold"><i class="fas fa-building me-2"></i>Company name:</p>
+                <p class="display-12 text-primary">@Model.company_name</p>
+
+                <p class="fw-bold"><i class="fas fa-calendar me-2"></i>Company origin date:</p>
+                <p class="display-12 text-primary">@Model.company_origin_date</p>
+
+                <p class="fw-bold">Fraud probability:</p>
+                <p class="display-6 text-primary">@Model.Probability</p>
+
+                <p class="fw-bold">Fraud Score:</p>
+                <p class="fs-4">
+                    <span class="badge @(Model.Score >= 0.7 ? "bg-danger" : Model.Score >= 0.4 ? "bg-warning text-dark" : "bg-success")">
+                        @Model.Score.ToString("0.00")
+                    </span>
+                </p>
+               
+
+            </div>
+            <div class="card-footer text-muted text-center">
+                Данные предоставлены системой ALARM
+            </div>
+        </div>
+    </div>
+</div>
+
+

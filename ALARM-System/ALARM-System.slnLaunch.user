@@ -1,14 +1,16 @@
 [
   {
-    "Name": "New Profile",
+    "Name": "Alarm+AlarmWebAPI",
     "Projects": [
       {
         "Path": "Alarm\\Alarm.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "https"
       },
       {
         "Path": "AlarmWebAPI\\AlarmWebAPI.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }
