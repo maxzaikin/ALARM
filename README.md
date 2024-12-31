@@ -1,5 +1,9 @@
 # ALARM: Applicant Loan Analyzer for Risk Management
 
+<img src="./images/main.png" width="450" />
+<img src="./images/input.png" width="450" />
+<img src="./images/predict.png" width="450" />
+
 ## **History**
 
 <img src="./images/xmass-hack-2024.png" width="450" />
